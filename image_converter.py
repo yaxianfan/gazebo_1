@@ -54,8 +54,9 @@ class Image_converter:
                 inRange_hsv = cv2.inRange(erode_hsv, color_dist[ball_color]['Lower'], color_dist[ball_color]['Upper'])
                 cnts = cv2.findContours(inRange_hsv, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
 
-                c = max(cnts, key=cv2.contourArea)
-                rect = cv2.minAreaRect(c)
+                if i in cnts:
+                	c = max(cnts, key=cv2.contourArea)
+                	rect = cv2.minAreaRect(c)
                 box = cv2.boxPoints(rect)
                 cv2.drawContours(image, [np.int0(box)], -1, (0, 255, 255), 2)
 
